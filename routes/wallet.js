@@ -19,6 +19,11 @@ const validatePayOrder = [
     check("amount").isFloat({min:0.01}),
 ]
 
+const validatePayConfirm = [
+    check("token").not().isEmpty(),
+    check("sessionId").not().isEmpty()
+]
+
 router.post('/recharge',validateRechargeWallet,function(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -49,6 +54,24 @@ router.post('/pay/order',validatePayOrder,function(req, res, next) {
         soap.createClientAsync(url).then((client) => {
             console.log(client.describe().WalletPortService.WalletPortSoap11);
             return client.generatePayOrderAsync(req.body);
+        }).then((response) => {
+            res.json(getResponseObject(response[1]));
+        });
+    }
+});
+
+router.post('/pay/confirm/:token',validatePayConfirm,function(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.json({ 
+            errorMessage:`El campo ${errors.array()[0].param} no es válido`,
+            errorCode:400,
+            success:false
+        });
+    }else{
+        soap.createClientAsync(url).then((client) => {
+            req.body.token = req.params.token;
+            return client.confirmPayOrderAsync(req.body);
         }).then((response) => {
             res.json(getResponseObject(response[1]));
         });
