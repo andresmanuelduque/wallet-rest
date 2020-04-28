@@ -1,37 +1,32 @@
 # Proyecto
 
-Servidor SOAP  para administrar un servicio de carteras digitales
+API REST para interactuar con el servidor SOAP de una cartera digital
 
 
 ### Prerequisitos
 
-* java 8+
-* maven
-* MySQL
+* nodejs
+* npm
 
 ### Instalación
 
-Congurar las credenciales de la base de datos en el archivo `/src/main/resources/application.properties`
-
-` mvn install`
-` mvn clean packege`
+```
+    npm install
+```
 
 ### Run
 ```
-cd target
+    node bin/www
 ```
-`java -jar <nombre del archivo generado por mvn package>.jar`
 
 
 ## Desarrollado con las siguientes tecnologias
 
-* [mvn] - Manejador de paquetes
-* [JAVA] - Entorno de programacion
-* [Spring] - Framework utilizado
-* [Hibernate] - ORM
-* [MySQL] - Gestor de base de datos
+* [npm] - Manejador de paquetes
+* [NodeJS] - Entorno de programacion
+* [Express] - Framework utilizado
 
-## Información
+## Informacion
 En la raiz del proyecto se encuentra un la colección de postman con los esquemas para cada peticion.
 
 
