@@ -1,0 +1,356 @@
+{
+	"info": {
+		"_postman_id": "06c1036f-8384-451c-92af-a1e06ef68b33",
+		"name": "Wallet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "REST",
+			"item": [
+				{
+					"name": "Crear Cliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"document\":\"23443295\",\n\t\"firstName\":\"Andres\",\n\t\"lastName\":\"Duque\",\n\t\"email\":\"aduque@gmail.com\",\n\t\"cellphone\":\"+58412751696\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/clients",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recargar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"document\":\"23443295\",\n\t\"cellphone\":\"+584127751696\",\n\t\"amount\":2000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/wallet/recharge",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"wallet",
+								"recharge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generar Orden de Pago",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"emailFromPay\":\"andresmanuelduque@gmail.com\",\n\t\"emailToPay\":\"client@test.com\",\n\t\"amount\":1500\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/wallet/pay/order",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"wallet",
+								"pay",
+								"order"
+							]
+						},
+						"description": "Con este endpoint se puede generar una orden de pago, en el parametro data del objecto de respuesta se puede obtener el sessionId necesario para confirmar la transaccion.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Confirmar Pago",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"sessionId\":\"15880907933991273558333\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/wallet/pay/confirm/ooavys",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"wallet",
+								"pay",
+								"confirm",
+								"ooavys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirmar Pago Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"document\":\"23443295\",\n\t\"cellphone\":\"+584127751696\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/wallet/balance",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"wallet",
+								"balance"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Peticiones a la plataforma REST de wallet",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "SOAP",
+			"item": [
+				{
+					"name": "Crear Cliente",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n\t\t\t\t  xmlns:gs=\"http://localhost:8080/wallet-soap\">\n   <soapenv:Header/>\n   <soapenv:Body>\n      <gs:createClientRequest>\n        <gs:document>23443295</gs:document>\n\t\t<gs:firstName>Andres</gs:firstName>\n\t\t<gs:lastName>Duque</gs:lastName>\n\t\t<gs:email>andresmanuelduque@gmail.com</gs:email>\n\t\t<gs:cellphone>+584127751696</gs:cellphone>\n      </gs:createClientRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ws/wallet.wsdl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"wallet.wsdl"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recargar",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "text/xml"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n\t\t\t\t  xmlns:gs=\"http://localhost:8080/wallet-soap\">\n   <soapenv:Header/>\n   <soapenv:Body>\n      <gs:rechargeWalletRequest>\n        <gs:document>23443295</gs:document>\n\t\t<gs:cellphone>+584127751696</gs:cellphone>\n\t\t<gs:amount>200</gs:amount>\n      </gs:rechargeWalletRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ws/wallet.wsdl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"wallet.wsdl"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generar Orden de pago",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "text/xml"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n\t\t\t\t  xmlns:gs=\"http://localhost:8080/wallet-soap\">\n   <soapenv:Header/>\n   <soapenv:Body>\n      <gs:generatePayOrderRequest>\n        <gs:emailFromPay>andresmanuelduque@gmail.com</gs:emailFromPay>\n\t\t<gs:emailToPay>duque_604@hotmail.com</gs:emailToPay>\n\t\t<gs:amount>15</gs:amount>\n      </gs:generatePayOrderRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ws/wallet.wsdl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"wallet.wsdl"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirmar Orden de pago",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "text/xml"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n\t\t\t\t  xmlns:gs=\"http://localhost:8080/wallet-soap\">\n   <soapenv:Header/>\n   <soapenv:Body>\n      <gs:confirmPayOrderRequest>\n        <gs:sessionId>1588089460736104788362</gs:sessionId>\n        <gs:token>udwrpv</gs:token>\n      </gs:confirmPayOrderRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ws/wallet.wsdl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"wallet.wsdl"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Saldo",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "text/xml"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n\t\t\t\t  xmlns:gs=\"http://localhost:8080/wallet-soap\">\n   <soapenv:Header/>\n   <soapenv:Body>\n      <gs:getBalanceRequest>\n        <gs:document>23443295</gs:document>\n        <gs:cellphone>+584127751696</gs:cellphone>\n      </gs:getBalanceRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ws/wallet.wsdl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"wallet.wsdl"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
