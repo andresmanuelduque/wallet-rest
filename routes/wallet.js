@@ -7,15 +7,13 @@ const {check, validationResult } = require('express-validator');
 
 const url = "http://localhost:8080/ws/wallet.wsdl";
 
-const validateClient = [
+const validateRechargeWallet = [
     check("document").not().isEmpty(),
-    check("firstName").not().isEmpty(),
-    check("lastName").not().isEmpty(),
-    check("email").isEmail(),
+    check("amount").isFloat({min:0.01}),
     check("cellphone").not().isEmpty()
 ];
 
-router.post('/',validateClient,function(req, res, next) {
+router.post('/recharge',validateRechargeWallet,function(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.json({ 
@@ -25,7 +23,8 @@ router.post('/',validateClient,function(req, res, next) {
         });
     }else{
         soap.createClientAsync(url).then((client) => {
-            return client.createClientAsync(req.body);
+            console.log(client.describe().WalletPortService.WalletPortSoap11);
+            return client.rechargeWalletAsync(req.body);
         }).then((response) => {
             res.json(getResponseObject(response[1]));
         });
